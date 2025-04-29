@@ -9,7 +9,7 @@ const StartScreen: React.FC = () => {
     <div className="absolute inset-0 flex items-center justify-center bg-black/70 backdrop-blur-sm z-10">
       <div className="bg-gray-800 rounded-lg p-6 text-center w-10/12 max-w-md shadow-2xl border border-indigo-700">
         <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text mb-2">
-          Crypto Runner
+          Sophon Runner
         </h1>
         <p className="text-gray-300 mb-6">Jump over obstacles and collect crypto!</p>
         
