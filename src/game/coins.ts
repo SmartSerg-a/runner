@@ -46,50 +46,55 @@ export const updateCoins = (deltaTime: number, gameSpeed: number, coins: any[]):
 
 export const drawCoins = (ctx: CanvasRenderingContext2D, coins: any[]) => {
   const groundY = ctx.canvas.height * 0.8;
-  
+
   coins.forEach(coin => {
-    // Calculate Y position (above the ground by the height offset)
     coin.y = groundY - coin.heightOffset;
-    
+
     ctx.save();
-    
-    // Create a coin that looks like a cryptocurrency token
+
     const x = coin.x;
     const y = coin.y;
     const size = coin.size;
-    
-    // Draw the coin with rotation for 3D effect
+
     ctx.translate(x + size / 2, y + size / 2);
     ctx.rotate(coin.rotationAngle);
-    
-    // Main coin circle
-    ctx.beginPath();
-    ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
-    
-    // Create a gradient for the coin
+
+    // 1. Золотой круг с 3D-эффектом
     const gradient = ctx.createRadialGradient(0, 0, size / 4, 0, 0, size / 2);
-    gradient.addColorStop(0, 'rgba(255, 255, 255, 0.7)');
-    gradient.addColorStop(1, coin.color);
-    
+    gradient.addColorStop(0, '#FFD700'); // Светлое золото (центр)
+    gradient.addColorStop(1, '#DAA520'); // Тёмное золото (края)
     ctx.fillStyle = gradient;
-    ctx.fill();
-    
-    // Add a cryptocurrency symbol
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-    ctx.font = `bold ${size * 0.5}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('₿', 0, 0);
-    
-    // Add subtle glow effect
-    ctx.shadowColor = coin.color;
-    ctx.shadowBlur = 10;
     ctx.beginPath();
     ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+    ctx.fill();
+
+    // 2. Симметричный символ (крест + эллипс)
+    const symbolSize = size * 0.8;
+    ctx.strokeStyle = '#000000'; // Чёрный цвет для контраста
+    ctx.lineWidth = size * 0.1;
+
+    // Крест
+    ctx.beginPath();
+    ctx.moveTo(-symbolSize / 2, 0);
+    ctx.lineTo(symbolSize / 2, 0);
+    ctx.moveTo(0, -symbolSize / 2);
+    ctx.lineTo(0, symbolSize / 2);
+    ctx.stroke();
+
+    // Эллипс
+    ctx.beginPath();
+    ctx.ellipse(0, 0, symbolSize / 2, symbolSize / 4, 0, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // 3. Оранжево-жёлтое свечение
+    ctx.shadowColor = '#FFA500'; // Оранжевый оттенок
+    ctx.shadowBlur = 20; // Мягкое свечение
+    ctx.beginPath();
+    ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255, 165, 0, 0.5)'; // Полупрозрачный оранжевый
     ctx.lineWidth = 2;
     ctx.stroke();
-    
+
     ctx.restore();
   });
 };
