@@ -34,7 +34,7 @@ const GameOverScreen: React.FC = () => {
         
         {/* Кнопка X с SVG */}
         <a
-          href="https://x.com/your_username"
+          href="https://x.com/whatphotofuck"
           target="_blank"
           rel="noopener noreferrer"
           className="absolute top-2 right-2"
