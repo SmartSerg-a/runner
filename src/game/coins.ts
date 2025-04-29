@@ -59,19 +59,21 @@ export const drawCoins = (ctx: CanvasRenderingContext2D, coins: any[]) => {
     ctx.translate(x + size / 2, y + size / 2);
     ctx.rotate(coin.rotationAngle);
 
-    // 1. Золотой круг с 3D-эффектом
+    // Золотой градиент монетки
     const gradient = ctx.createRadialGradient(0, 0, size / 4, 0, 0, size / 2);
-    gradient.addColorStop(0, '#FFD700'); // Светлое золото (центр)
-    gradient.addColorStop(1, '#DAA520'); // Тёмное золото (края)
+    gradient.addColorStop(0, '#FFD700');
+    gradient.addColorStop(1, '#DAA520');
     ctx.fillStyle = gradient;
     ctx.beginPath();
     ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
     ctx.fill();
 
-    // 2. Симметричный символ (крест + эллипс)
+    // Символ (крест и эллипс) в золотистом пастельном тоне
     const symbolSize = size * 0.8;
-    ctx.strokeStyle = '#000000'; // Чёрный цвет для контраста
-    ctx.lineWidth = size * 0.1;
+    ctx.lineWidth = size * 0.05;    // Тоньше линии
+    ctx.shadowColor = '#FFD700';    // Золотистое свечение
+    ctx.shadowBlur = 5;             // Небольшое свечение
+    ctx.strokeStyle = '#FFEC8B';    // Пастельный золотистый цвет
 
     // Крест
     ctx.beginPath();
@@ -86,14 +88,8 @@ export const drawCoins = (ctx: CanvasRenderingContext2D, coins: any[]) => {
     ctx.ellipse(0, 0, symbolSize / 2, symbolSize / 4, 0, 0, Math.PI * 2);
     ctx.stroke();
 
-    // 3. Оранжево-жёлтое свечение
-    ctx.shadowColor = '#FFA500'; // Оранжевый оттенок
-    ctx.shadowBlur = 20; // Мягкое свечение
-    ctx.beginPath();
-    ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(255, 165, 0, 0.5)'; // Полупрозрачный оранжевый
-    ctx.lineWidth = 2;
-    ctx.stroke();
+    // Сброс свечения
+    ctx.shadowBlur = 0;
 
     ctx.restore();
   });
